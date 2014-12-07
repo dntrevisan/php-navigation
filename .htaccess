@@ -1,0 +1,19 @@
+Options +FollowSymLinks
+
+#Executa se o módulo estiver carregado no servidor
+<IfModule mod_rewrite.c>
+	#Habilita o Módulo de Reescrita
+		RewriteEngine On
+	#Define a pasta da raiz
+		RewriteBase /
+	#Se a URL apontar para um arquivo, vai diretamente para ele
+		RewriteCond %{REQUEST_FILENAME} !-f
+	#Se a URL apontar para uma pasta, vai diretamente para ela
+		RewriteCond %{REQUEST_FILENAME} !-d
+	#Desabilita a listagem de pastas no browser	
+		IndexIgnore   *
+	#Libera acesso a um diretorio especifico que não utiliza as regras Rewrite
+		RewriteRule   ^public/.*$ - [L]
+	#Libera leitura somente a arquivos de midia
+		RewriteRule !\.(gif|jpg|png|css|js|ico|swf|txt|xml|pdf|ogg|ttf)$ index.php [L]
+</IfModule>
